@@ -1,3 +1,4 @@
+/** @member {Object} */
 var XMLHttpRequest = require('xhr2');
 
 function getData(action, url) {
@@ -33,7 +34,13 @@ getData('GET', 'https://jsonplaceholder.typicode.com/todos')
         console.log('\nNow chaining another promise!\n');
         return (getData('GET', 'https://jsonplaceholder.typicode.com/users'));
     })
-    .then ( (data) =>  displayData(data))
+    .then ( (data) =>  {
+        displayData(data);
+        return (getData('GET', 'https://jsonplaceholder.typicode.com/albums'));
+    })
+    .then ( (data) =>  {
+        displayData(data);
+     })
     .catch(function(err) {
             console.log(err);
         }
